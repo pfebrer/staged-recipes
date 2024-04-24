@@ -1,0 +1,39 @@
+{% set name = "nodify" %}
+{% set version = "0.0.3" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/nodify-{{ version }}.tar.gz
+  sha256: c4e4796b898e4f685d168d797b460804f4c0983c0d9b49a24db6c319629537ca
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.9
+    - pip
+  run:
+    - python >=3.9
+
+test:
+  imports:
+    - nodify
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/pfebrer/nodify
+  summary: Supercharge your functional application with a powerful node system.
+  license: MIT
+
+extra:
+  recipe-maintainers:
+    - pfebrer
